@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 2rem;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+img,
+iframe {
+  max-width: 100%;
+}
+
+html[data-language="ne"] body,
+.font-nepali {
+  font-family: var(--font-devanagari), var(--font-jakarta), sans-serif;
+}
+
+html[data-language="ne"] body {
+  line-height: 1.7;
+}
+
+::selection {
+  background: #cddaff;
+  color: #0b1226;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .section-space {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+
+  .eyebrow {
+    @apply text-sm font-extrabold uppercase tracking-[0.16em] text-brand;
+  }
+
+  .section-title {
+    @apply mt-3 text-balance text-3xl font-extrabold tracking-[-0.035em] text-ink sm:text-4xl lg:text-5xl;
+  }
+
+  .primary-cta {
+    @apply inline-flex min-h-14 max-w-full items-center justify-center whitespace-normal rounded-full bg-brand px-6 py-3 text-center text-base font-extrabold leading-6 text-white shadow-lg shadow-blue-900/15 transition duration-200 hover:-translate-y-0.5 hover:bg-blue-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 sm:px-9 sm:text-lg;
+  }
+
+  .light-cta {
+    @apply inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 py-3 text-center text-base font-extrabold text-brand shadow-lg transition duration-200 hover:-translate-y-1 hover:bg-soft focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 sm:px-9 sm:text-lg;
+  }
+
+  .interactive-card {
+    @apply transition duration-300 ease-out hover:-translate-y-1.5 hover:border-blue-300 hover:shadow-soft focus-within:-translate-y-1 focus-within:border-blue-400 focus-within:shadow-soft;
+  }
+
+  .blue-hover-card {
+    @apply outline-none focus-visible:-translate-y-1.5 focus-visible:border-brand focus-visible:bg-brand focus-visible:text-white focus-visible:shadow-soft;
+  }
+}
+
+.blue-hover-card:hover,
+.blue-hover-card:focus-visible {
+  border-color: #0136ce;
+  background: #0136ce;
+  color: white;
+  box-shadow: 0 22px 45px -24px rgba(1, 54, 206, 0.58);
+}
+
+.blue-hover-card:hover p,
+.blue-hover-card:hover h3,
+.blue-hover-card:hover > span,
+.blue-hover-card:focus-visible p,
+.blue-hover-card:focus-visible h3,
+.blue-hover-card:focus-visible > span {
+  color: white;
+}
+
+.blue-hover-card:hover .card-icon,
+.blue-hover-card:focus-visible .card-icon,
+.blue-hover-card:hover .benefit-check,
+.blue-hover-card:focus-visible .benefit-check,
+.blue-hover-card:hover .process-badge,
+.blue-hover-card:focus-visible .process-badge {
+  background: white;
+  color: #0136ce;
+}
+
+.blue-hover-card:hover .process-badge,
+.blue-hover-card:focus-visible .process-badge {
+  --tw-ring-color: rgba(255, 255, 255, 0.18);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-copy-enter {
+  animation: hero-copy-in 700ms ease-out both;
+}
+
+.hero-photo-enter {
+  animation: hero-photo-in 820ms 80ms ease-out both;
+}
+
+.lead-magnet-enter {
+  animation: lead-magnet-in 680ms 140ms ease-out both;
+}
+
+@media (max-width: 639px) {
+  .hero-copy-enter,
+  .hero-copy-enter > *,
+  .hero-photo-enter {
+    width: 100%;
+    max-width: calc(100vw - 2.5rem);
+  }
+
+  .hero-copy-enter > * {
+    overflow-wrap: anywhere;
+  }
+}
+
+.confirmation-enter {
+  animation: fade-up 650ms ease-out both;
+}
+
+.confirm-icon {
+  animation: confirm-scale 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes hero-copy-in {
+  from { opacity: 0; transform: translateX(-26px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hero-photo-in {
+  from { opacity: 0; transform: translateX(42px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes lead-magnet-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confirm-scale {
+  from { opacity: 0; transform: scale(0.72); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
