@@ -81,6 +81,8 @@ export const translations = {
         message: { label: "Anything You Want to Say", placeholder: "Share anything that will help me prepare" },
       },
       submit: "Book My Free Consultation",
+      submitting: "Submitting to Flodesk...",
+      submissionError: "Your request could not be submitted. Please check your connection and try again.",
       trust: "Your information is used only to respond to your consultation request.",
       required: "Required",
       errors: {
@@ -204,6 +206,8 @@ export const translations = {
         message: { label: "थप केही भन्न चाहनुहुन्छ?", placeholder: "तयारीमा मद्दत हुने जानकारी साझा गर्नुहोस्" },
       },
       submit: "मेरो निःशुल्क परामर्श बुक गर्नुहोस्",
+      submitting: "Flodesk मा पठाउँदै...",
+      submissionError: "तपाईंको अनुरोध पठाउन सकिएन। कृपया इन्टरनेट जडान जाँचेर फेरि प्रयास गर्नुहोस्।",
       trust: "तपाईंको जानकारी परामर्श अनुरोधको जवाफ दिन मात्र प्रयोग गरिन्छ।",
       required: "अनिवार्य",
       errors: {
