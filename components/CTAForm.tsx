@@ -23,7 +23,7 @@ type FlodeskWindow = Window & {
   fd?: FlodeskFunction;
 };
 
-type SubmissionState = "idle" | "submitting" | "error";
+type SubmissionState = "idle" | "submitting" | "captcha" | "error";
 
 const inputClass = "mt-2 min-h-14 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-ink outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-4 focus:ring-blue-100 aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-100";
 
@@ -70,6 +70,7 @@ export function CTAForm() {
   const rootRef = useRef<HTMLDivElement>(null);
   const flodeskMessageRef = useRef<HTMLInputElement>(null);
   const submissionTimeoutRef = useRef<number>();
+  const captchaActiveRef = useRef(false);
   const formCopy = copy.form;
 
   useEffect(() => {
@@ -84,7 +85,27 @@ export function CTAForm() {
       if (root?.dataset.ffStage === "success") {
         clearSubmissionTimeout();
         window.sessionStorage.setItem(DEMO_COMPLETION_KEY, "true");
-      } else if (root?.classList.contains("fd-has-error") || root?.querySelector(".fd-has-error")) {
+        return;
+      }
+
+      const hasCaptcha = Boolean(root?.classList.contains("fd-has-captcha") || root?.querySelector(".fd-has-captcha, .fd-form-captcha"));
+      if (hasCaptcha) {
+        captchaActiveRef.current = true;
+        clearSubmissionTimeout();
+        setSubmissionState("captcha");
+        return;
+      }
+
+      if (captchaActiveRef.current) {
+        captchaActiveRef.current = false;
+        setSubmissionState("submitting");
+        submissionTimeoutRef.current = window.setTimeout(() => {
+          setSubmissionState("error");
+          submissionTimeoutRef.current = undefined;
+        }, 15000);
+      }
+
+      if (root?.classList.contains("fd-has-error") || root?.querySelector(".fd-has-error")) {
         clearSubmissionTimeout();
         setSubmissionState("error");
       }
@@ -161,9 +182,14 @@ export function CTAForm() {
                   <input type="text" name="confirm_email_address" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
                 </div>
                 <div data-ff-el="footer">
-                  <button type="submit" data-ff-el="submit" aria-busy={submissionState === "submitting"} className="primary-cta mt-7 w-full">{submissionState === "submitting" ? formCopy.submitting : formCopy.submit}<ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" /></button>
+                  <button type="submit" data-ff-el="submit" aria-busy={submissionState === "submitting"} className="primary-cta mt-7 w-full">
+                    {submissionState === "submitting" && <span className="mr-3 h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />}
+                    {submissionState === "captcha" ? formCopy.captchaButton : submissionState === "submitting" ? formCopy.submitting : formCopy.submit}
+                    {(submissionState === "idle" || submissionState === "error") && <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />}
+                  </button>
                 </div>
                 <p className="mt-4 flex items-start justify-center gap-2 text-center text-sm font-semibold leading-6 text-slate-500"><LockKeyhole className="mt-1 h-4 w-4 shrink-0" aria-hidden="true" />{formCopy.trust}</p>
+                {submissionState === "captcha" && <p className="mt-3 text-center text-sm font-semibold leading-6 text-brand" role="status">{formCopy.captchaPrompt}</p>}
               </div>
               <div data-ff-el="success" className="hidden" aria-live="polite" />
               <div data-ff-el="error" className="mt-4 text-center text-sm font-semibold text-red-600" role="alert" aria-live="polite">{submissionState === "error" ? formCopy.submissionError : null}</div>
