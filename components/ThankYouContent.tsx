@@ -64,12 +64,15 @@ export function ThankYouContent() {
             <h2 className="mt-3 text-balance text-2xl font-extrabold text-ink sm:text-3xl">{pageCopy.video.heading}</h2>
             <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">{pageCopy.video.description}</p>
             <div className="mt-7 overflow-hidden rounded-2xl border border-blue-100 bg-ink shadow-xl">
-              <video controls playsInline preload="metadata" className="aspect-video h-auto w-full bg-ink" aria-label={pageCopy.video.demoLabel}>
-                <source src="/demo-consultation.mp4" type="video/mp4" />
-                {pageCopy.video.unsupported}
-              </video>
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/S36c2hElhwA?rel=0"
+                title={pageCopy.video.heading}
+                className="aspect-video w-full bg-ink"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </div>
-            <p className="mt-3 text-sm font-semibold text-slate-500">{pageCopy.video.demoLabel}</p>
           </Reveal>
 
           <Reveal className="mt-14 rounded-[2rem] border border-green-200 bg-green-50 p-6 text-center sm:p-9" delay={100}>

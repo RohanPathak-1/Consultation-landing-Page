@@ -121,7 +121,7 @@ export const translations = {
       video: {
         eyebrow: "Before you leave",
         heading: "Before You Leave, Here’s a Special Message from Rohan.",
-        description: "Preview how Rohan’s future consultation message will appear in this section.",
+        description: "Watch this quick personal message from Rohan and discover your next step toward growing your business.",
         demoLabel: "Temporary CC0 demonstration video — replace this file with Rohan’s final recording later.",
         unsupported: "Your browser does not support the video player.",
       },
